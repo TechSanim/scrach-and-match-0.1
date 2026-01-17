@@ -7,6 +7,10 @@
     <title>Scratch & Match - ZERONE 7.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      // Shim process.env for browser compatibility
+      window.process = { env: { NODE_ENV: 'production' } };
+    </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -51,6 +55,7 @@
 </head>
 <body>
     <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
 <script type="module" src="/index.tsx"></script>
 </body>
 </html>

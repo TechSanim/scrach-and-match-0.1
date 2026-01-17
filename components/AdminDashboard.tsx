@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { db } from '../services/db';
-import { AppConfig, User } from '../types';
+import { db } from '../services/db.ts';
+import { AppConfig, User } from '../types.ts';
 
 interface AdminDashboardProps {
   onReset?: () => void;

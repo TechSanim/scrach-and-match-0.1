@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { db } from './services/db';
-import { User } from './types';
-import ScratchCard from './components/ScratchCard';
-import AdminDashboard from './components/AdminDashboard';
+import { db } from './services/db.ts';
+import { User } from './types.ts';
+import ScratchCard from './components/ScratchCard.tsx';
+import AdminDashboard from './components/AdminDashboard.tsx';
 import confetti from 'canvas-confetti';
 
 const App: React.FC = () => {
