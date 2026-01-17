@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
-      // Shim process.env for browser compatibility
+      // Crucial: Shim process for libraries that expect it in a node-like environment
       window.process = { env: { NODE_ENV: 'production' } };
     </script>
     <style>
@@ -38,6 +38,11 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
+        /* Custom scrollbar for tech look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #dc2626; }
     </style>
 <script type="importmap">
 {
@@ -55,7 +60,6 @@
 </head>
 <body>
     <div id="root"></div>
-    <script type="module" src="index.tsx"></script>
 <script type="module" src="/index.tsx"></script>
 </body>
 </html>

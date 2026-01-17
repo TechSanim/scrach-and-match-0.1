@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { db } from './services/db.ts';
-import { User } from './types.ts';
-import ScratchCard from './components/ScratchCard.tsx';
-import AdminDashboard from './components/AdminDashboard.tsx';
+import { db } from './services/db';
+import { User } from './types';
+import ScratchCard from './components/ScratchCard';
+import AdminDashboard from './components/AdminDashboard';
 import confetti from 'canvas-confetti';
 
 const App: React.FC = () => {
@@ -13,10 +13,14 @@ const App: React.FC = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   useEffect(() => {
-    const savedEmail = localStorage.getItem('session_email');
-    if (savedEmail) {
-      const user = db.getUserByEmail(savedEmail);
-      if (user) setCurrentUser(user);
+    try {
+      const savedEmail = localStorage.getItem('session_email');
+      if (savedEmail) {
+        const user = db.getUserByEmail(savedEmail);
+        if (user) setCurrentUser(user);
+      }
+    } catch (e) {
+      console.warn("Session restore failed", e);
     }
     setLoading(false);
   }, []);
@@ -42,7 +46,7 @@ const App: React.FC = () => {
 
   const handleGoogleLogin = () => {
     setIsAuthenticating(true);
-    // Simulate Google Sign-In Delay and Popup feel
+    // Simulation of Google OAuth flow
     setTimeout(() => {
       const mockEmail = "participant@gmail.com";
       const existingUser = db.getUserByEmail(mockEmail);
@@ -90,7 +94,6 @@ const App: React.FC = () => {
       const allUsers = db.getUsers();
       const scratchedUsers = allUsers.filter(u => u.isScratched).length;
       
-      // Safety guard for division by zero
       const numGroups = Math.max(1, config.numberOfGroups);
       const groupNum = (scratchedUsers % numGroups) + 1;
 
@@ -122,8 +125,8 @@ const App: React.FC = () => {
 
   if (isAdmin) {
     return (
-      <div className="min-h-screen bg-neutral-950 text-white">
-        <nav className="bg-neutral-900 border-b border-neutral-800 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+      <div className="min-h-screen bg-[#0a0a0a] text-white">
+        <nav className="bg-black border-b border-white/5 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></div>
             <span className="font-black text-xs uppercase tracking-widest text-red-500">Mainframe Override</span>
@@ -138,7 +141,6 @@ const App: React.FC = () => {
   if (!currentUser) {
     return (
       <div className="min-h-screen bg-poster flex items-center justify-center p-4 relative overflow-hidden">
-        {/* Animated ambient background element */}
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-red-600/10 blur-[120px] rounded-full animate-pulse-slow"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-red-950/20 blur-[120px] rounded-full animate-pulse-slow"></div>
 
