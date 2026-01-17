@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { db } from './services/db';
 import { User } from './types';
@@ -46,7 +45,6 @@ const App: React.FC = () => {
 
   const handleGoogleLogin = () => {
     setIsAuthenticating(true);
-    // Simulation of Google OAuth flow
     setTimeout(() => {
       const mockEmail = "participant@gmail.com";
       const existingUser = db.getUserByEmail(mockEmail);
