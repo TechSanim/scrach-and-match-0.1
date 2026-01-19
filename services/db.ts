@@ -1,7 +1,7 @@
 
 import { User, AppConfig } from '../types';
 
-const USERS_KEY = 'scratch_app_users_v2'; // Versioned key to prevent legacy data issues
+const USERS_KEY = 'scratch_app_users_v2'; 
 const CONFIG_KEY = 'scratch_app_config_v2';
 
 export const db = {
@@ -48,7 +48,8 @@ export const db = {
       const defaults: AppConfig = {
         totalParticipants: 100,
         numberOfGroups: 10,
-        participantsPerGroup: 10
+        participantsPerGroup: 10,
+        isEventStarted: false
       };
       if (!data) return defaults;
       const parsed = JSON.parse(data);
@@ -57,7 +58,8 @@ export const db = {
       return {
         totalParticipants: 100,
         numberOfGroups: 10,
-        participantsPerGroup: 10
+        participantsPerGroup: 10,
+        isEventStarted: false
       };
     }
   },
@@ -67,7 +69,11 @@ export const db = {
   },
 
   reset: () => {
+    // Clear all keys and also generic ones just in case
     localStorage.removeItem(USERS_KEY);
-    // Note: We intentionally keep the config even after reset
+    localStorage.removeItem(CONFIG_KEY);
+    localStorage.removeItem('session_email');
+    // Session storage is usually for admin login, clear it too on full purge
+    sessionStorage.removeItem('admin_verified');
   }
 };
